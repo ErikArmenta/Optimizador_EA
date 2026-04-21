@@ -245,6 +245,36 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
+# JavaScript — efecto ripple en botones (original v1.0)
+st.markdown("""
+<script>
+    document.addEventListener('click', function(e) {
+        if (e.target.tagName === 'BUTTON') {
+            const ripple = document.createElement('span');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255,255,255,0.3)';
+            ripple.style.width = '100px';
+            ripple.style.height = '100px';
+            ripple.style.transform = 'translate(-50%, -50%)';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.animation = 'ripple-anim 0.6s ease-out forwards';
+            e.target.style.position = 'relative';
+            e.target.style.overflow = 'hidden';
+            ripple.style.left = (e.clientX - e.target.getBoundingClientRect().left) + 'px';
+            ripple.style.top = (e.clientY - e.target.getBoundingClientRect().top) + 'px';
+            e.target.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }
+    });
+</script>
+<style>
+    @keyframes ripple-anim {
+        to { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+    }
+</style>
+""", unsafe_allow_html=True)
+
 
 # ============================================================
 # UTILIDADES
